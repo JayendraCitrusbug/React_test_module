@@ -24,7 +24,6 @@ function Register() {
 
   useEffect(() => {
     const result = pwd===matchPwd
-    console.log(result);
     if (!result){
       setErrMsg("Confirm Password doesn't match!")
     }else{

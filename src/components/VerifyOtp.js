@@ -3,7 +3,6 @@ import logo2 from '../templates/assets/images/logo2.svg'
 import axios from 'axios'
 
 const VerifyOtp = () => {
-    
     const [otp, setOtp] = useState('')
     const [errMsg, setErrMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
@@ -19,9 +18,30 @@ const VerifyOtp = () => {
             method: "POST",
             data: formData
         })
-        .then((res) => {setErrMsg(''); setSuccessMsg(res.data.message); if(res.data.status===true){setErrMsg(''); setSuccessMsg(''); setSuccess(true); console.log(res);}})
-        .catch((err) => {setSuccessMsg(''); setErrMsg(err.response.data.message);})
-    } 
+        // console.log(res.data.data.first_name);
+        .then((res) => {
+            setErrMsg(''); 
+            setSuccessMsg(res.data.message); 
+            if(res.data.status===true){
+                setErrMsg(''); 
+                setSuccessMsg(''); 
+                setSuccess(true);
+                console.log(res.data.data);
+                let user_details = res.data.data;
+                localStorage.setItem("id",user_details.id);
+                localStorage.setItem("email",user_details.email);
+                localStorage.setItem("first_name",user_details.first_name);
+                localStorage.setItem("last_name",user_details.last_name);
+                localStorage.setItem("access",user_details.access);
+                localStorage.setItem("refresh",user_details.refresh);
+                window.location = "/home"
+            }
+        })
+        .catch((err) => {
+            setSuccessMsg(''); 
+            setErrMsg(err.response.data.message);
+        })
+    }
 
     return (
         <div className="cf_login_wrapper">
@@ -43,7 +63,6 @@ const VerifyOtp = () => {
                 </div>
             </div>
         </div>
-
     )
 }
 
