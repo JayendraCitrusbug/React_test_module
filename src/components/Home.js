@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "../templates/assets/css/swiper-bundle.min.css"
 import "../templates/assets/css/common.css"
 import "../templates/assets/css/dashboard.css"
@@ -13,50 +13,9 @@ import green_caret from '../templates/assets/images/green_caret.svg'
 import red_caret from '../templates/assets/images/red_caret.svg'
 import profile from '../templates/assets/images/mini_profile.png'
 import $ from 'jquery';
-import axios from 'axios'
-
+import SubCategory from './SubCategory'
 
 function Home() {
-
-    // const id = localStorage.id
-    // const email = localStorage.email
-    // const first_name = localStorage.first_name
-    // const last_name = localStorage.last_name
-    // const access = localStorage.access
-    // const refresh = localStorage.refresh
-
-    // console.log(access);
-
-    const handleClick = (e) => {
-        console.log("*********");
-        const name = (e.target.innerHTML).toLowerCase();
-
-        const access = localStorage.access
-        const token = "Bearer " + access
-
-        axios({
-            url: `http://43.204.196.131:9300/api/v1/subcategory/${name}/`,
-            method: "GET",
-            headers: {
-                "Authorization": `${token}`,
-            }
-
-        })
-            // console.log(res.data.data.first_name);
-            .then((res) => {
-                e.target.parentNode.parentNode.children[1].innerHTML = ""
-                for (let i = 0; i < res.data.data.length; i++) {
-                    console.log(res.data.data[i].sub_category_name);
-
-                    var a = `<li><a href="us_sales.html">${res.data.data[i].sub_category_name}</a></li>`
-                    var b = e.target.parentNode.parentNode.children[1]
-                    b.innerHTML += a
-                }
-            })
-            .catch((err) => {
-                console.log("err :", err);
-            })
-    }
 
     return (
         <div className="cf_dashboard_main_wrapper">
@@ -78,117 +37,82 @@ function Home() {
                                 <a href="/home"><span className="cf_icon cf_home"></span><label>Home</label></a>
                             </li>
                             <li className="cf_submenu_block">
-                                <a className="menu_scrl"><span className="cf_icon cf_weather"></span><label onClick={handleClick}>Weather</label><span
+                                <a className="menu_scrl"><span className="cf_icon cf_weather"></span><label>Weather</label><span
                                     className="cf_icon cf_down"></span></a>
                                 <ul className="cf_sidebar_submenu">
-
+                                    <SubCategory name={'weather'} />
                                 </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_crops"></span><label>Crops</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a >US Inspections</a></li>
-                                    <li><a >USDA Flash</a></li>
-                                    <li><a >EU Weekly Trade Data</a></li>
-                                    <li><a >Lineup Data</a></li>
-                                    <li><a >Tender Data</a></li>
-                                    <li><a >Custom Data</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'crops'} />
+                                </ul>
                             </li>
 
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_sds"></span><label>S&D’s</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                    <li><a href="usdaflash.html">USDA Flash</a></li>
-                                    <li><a href="eu_weekly_trade_data.html">EU Weekly Trade Data</a></li>
-                                    <li><a href="line_up_data.html">Lineup Data</a></li>
-                                    <li><a href="tender_data.html">Tender Data</a></li>
-                                    <li><a href="custom_data.html">Custom Data</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'sd'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_trade"></span><label>Trade</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                    <li><a href="usdaflash.html">USDA Flash</a></li>
-                                    <li><a href="eu_weekly_trade_data.html">EU Weekly Trade Data</a></li>
-                                    <li><a href="line_up_data.html">Lineup Data</a></li>
-                                    <li><a href="tender_data.html">Tender Data</a></li>
-                                    <li><a href="custom_data.html">Custom Data</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'trade'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_policy"></span><label>Policies</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'policies'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_process"></span><label>Processing Capacity</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'processing-capacity'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_price"></span><label>Prices</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                    <li><a href="usdaflash.html">USDA Flash</a></li>
-                                    <li><a href="eu_weekly_trade_data.html">EU Weekly Trade Data</a></li>
-                                    <li><a href="line_up_data.html">Lineup Data</a></li>
-                                    <li><a href="tender_data.html">Tender Data</a></li>
-                                    <li><a href="custom_data.html">Custom Data</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'prices'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_price_analysis"></span><label>Price Analysis</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                    <li><a href="usdaflash.html">USDA Flash</a></li>
-                                    <li><a href="eu_weekly_trade_data.html">EU Weekly Trade Data</a></li>
-                                    <li><a href="line_up_data.html">Lineup Data</a></li>
-                                    <li><a href="tender_data.html">Tender Data</a></li>
-                                    <li><a href="custom_data.html">Custom Data</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'price-analysis'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_sentiment"></span><label>Sentiment</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'sentiment'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_picture"></span><label>The Big Picture</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'the-big-picture'} />
+                                </ul>
                             </li>
                             <li className="cf_submenu_block">
                                 <a className="menu_scrl"><span className="cf_icon cf_report"></span><label>Report Archieve</label><span
                                     className="cf_icon cf_down"></span></a>
-                                {/* <ul className="cf_sidebar_submenu">
-                                    <li><a href="us_sales.html">US Sales</a></li>
-                                    <li><a href="us_inspections.html">US Inspections</a></li>
-                                </ul> */}
+                                <ul className="cf_sidebar_submenu">
+                                    <SubCategory name={'report-archive'} />
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -199,14 +123,7 @@ function Home() {
                                     <a className="menu_scrl"><span className="cf_icon cf_info"></span><label>Info</label><span
                                         className="cf_icon cf_down"></span></a>
                                     <ul className="cf_sidebar_submenu">
-                                        <li><a href="info_ceras_analytics.html">Ceras Analytics</a></li>
-                                        <li><a href="info_products.html">Products</a></li>
-                                        <li><a href="info_pricing.html">Pricing</a></li>
-                                        <li><a href="info_tutorials.html">Tutorials</a></li>
-                                        <li><a href="info_api_documentation.html">API Documentation</a></li>
-                                        <li><a href="info_faq.html">FAQ</a></li>
-                                        <li><a href="term_of_use.html">Term of Use</a></li>
-                                        <li><a href="info_contact.html">Contact</a></li>
+                                        <SubCategory name={'info'}/>
                                     </ul>
                                 </li>
                             </ul>
@@ -534,264 +451,30 @@ function Home() {
     )
 }
 
-
-// $(document).ready(function () {
-//     $(".cf_eye_green").on("click", function () {
-//         $(this).toggleClass("cf_eye_green_close");
-//         var fieldType = $(this).siblings("input[type='password']").attr("type");
-//         if (fieldType == "password") {
-//             $(this).siblings("input[type='password']").attr("type", "text");
-//         } else {
-//             $(this).siblings("input[type='text']").attr("type", "password");
-//         }
-//     });
-
-//     $(".cf_submenu_block > a").on("click", function (e) {
-//         e.stopPropagation();
-//         if ($(this).siblings(".cf_sidebar_submenu").hasClass("active")) {
-//             $(this).removeClass("active");
-//             $(this).parents(".cf_submenu_block").removeClass("active");
-//             $(this).siblings(".cf_sidebar_submenu").removeClass("active");
-//             $(this).siblings(".cf_sidebar_submenu").slideUp(0);
-//         } else {
-//             $(".cf_submenu_block > a").removeClass("active");
-//             $(".cf_submenu_block").removeClass("active");
-//             $(this).addClass("active");
-//             $(this).parents(".cf_submenu_block").addClass("active");
-//             $(".cf_sidebar_submenu.active").removeClass("active");
-//             $(".cf_sidebar_submenu").slideUp(0);
-//             $(this).siblings(".cf_sidebar_submenu").addClass("active");
-//             $(this).siblings(".cf_sidebar_submenu.active").slideDown(0);
-//         }
-//     });
-//     //Info
-//     $(".trial_block .info").on("click", function (e) {
-//         e.stopPropagation();
-//         if ($(this).children(".info_content").hasClass("active")) {
-//             $(this).children(".info_content").removeClass("active");
-//         } else {
-//             $(".info_content").removeClass("active");
-//             $(this).children(".info_content").toggleClass("active");
-//         }
-//     });
-//     $(document).on("click", function (e) {
-//         if ($(e.target).is(".info_content") === false) {
-//             $(".info_content").removeClass("active");
-//         }
-//     });
-//     if ($(window).width() < 992) {
-//         $(".cf_subnav_list > a").on("click", function (e) {
-//             e.stopPropagation();
-//             if ($(this).siblings(".cf_subnav").hasClass("active")) {
-//                 $(this).removeClass("active");
-//                 $(this).parents(".cf_subnav_list").removeClass("active");
-//                 $(this).siblings(".cf_subnav").removeClass("active");
-//                 $(this).siblings(".cf_subnav").slideUp(0);
-//             } else {
-//                 $(".cf_subnav_list > a").removeClass("active");
-//                 $(".cf_subnav_list").removeClass("active");
-//                 $(this).addClass("active");
-//                 $(this).parents(".cf_subnav_list").addClass("active");
-//                 $(".cf_subnav.active").removeClass("active");
-//                 $(".cf_subnav").slideUp(0);
-//                 $(this).siblings(".cf_subnav").addClass("active");
-//                 $(this).siblings(".cf_subnav.active").slideDown(0);
-//             }
-//         });
-//         $(".cf_landing_logo .cf_bar").on("click", function (e) {
-//             e.stopPropagation();
-//             $(".cf_landing_nav").toggleClass("active");
-//         });
-//         $(".cf_landing_nav .cf_close").on("click", function (e) {
-//             e.stopPropagation();
-//             $(".cf_landing_nav").removeClass("active");
-//         });
-//         $(".cf_landing_nav").on("click", function (e) {
-//             e.stopPropagation();
-//         });
-//     }
-
-//     $(".cf_form_field")
-//         .focus(function () {
-//             $(this).parents(".cf_edit_profile_form_block").addClass("cf_inp_focus");
-//         })
-//         .blur(function () {
-//             $(this)
-//                 .parents(".cf_edit_profile_form_block")
-//                 .removeClass("cf_inp_focus");
-//         });
-
-//     $(".cf_edit_profile_form_block .cf_form_field").on("click", function (e) {
-//         if (
-//             $(this).parents(".cf_edit_profile_form_block").hasClass("field_active")
-//         ) {
-//             e.stopPropagation();
-//             $(this).addClass("field_active");
-//         }
-//         $(".cf_dashboard_header_nav").removeClass("active");
-//         // $(".cf_dashboard_header").addClass("sidebar_closed");
-//         // $(".cf_dashboard_main_wrapper").addClass("sidebar_closed_main");
-//         e.stopPropagation();
-//         $(".cf_edit_profile_form_block").removeClass("field_active");
-//         $(this).parents(".cf_edit_profile_form_block").addClass("field_active");
-//     });
-//     $(".sidebar_toggle").on("click", function (e) {
-//         e.stopPropagation();
-//         $(".cf_dashboard_header_nav").removeClass("active");
-//         $(".cf_dashboard_header").toggleClass("sidebar_closed");
-//         $(".cf_dashboard_main_wrapper").toggleClass("sidebar_closed_main");
-//     });
-//     $(".cf_dashboard_header_nav").on("click", function (e) {
-//         e.stopPropagation();
-//     });
-//     $(".menu_toggle").on("click", function (e) {
-//         e.stopPropagation();
-//     });
-//     $(".cf_dashboard_sidebar_wrapper").on("click", function (e) {
-//         e.stopPropagation();
-//     });
-//     $(".cf_form_block .cf_icon").on("click", function (e) {
-//         e.stopPropagation();
-//         $(".cf_dashboard_header_nav").removeClass("active");
-//         $(".cf_dashboard_header").addClass("sidebar_closed");
-//         $(".cf_dashboard_main_wrapper").addClass("sidebar_closed_main");
-//     });
-
-//     var w_wid = $(window).width();
-//     if (w_wid < 992) {
-//         $(".cf_dashboard_main_wrapper").addClass("sidebar_closed_main");
-//         $(".cf_dashboard_header").addClass("sidebar_closed");
-
-//         $(".menu_toggle").on("click", function () {
-//             $(".cf_dashboard_header_nav").toggleClass("active");
-//         });
-
-//         $(document).on("click", function () {
-//             $(".cf_dashboard_header_nav").removeClass("active");
-//             $(".cf_dashboard_header").addClass("sidebar_closed");
-//             $(".cf_dashboard_main_wrapper").addClass("sidebar_closed_main");
-//         });
-
-//         $(".cf_edit_profile_form_block .cf_form_field").on("click", function (e) {
-//             $(".cf_dashboard_header").addClass("sidebar_closed");
-//             $(".cf_dashboard_main_wrapper").addClass("sidebar_closed_main");
-//         });
-//     }
-
-//     var height = $(window).height();
-//     var width = $(window).width();
-//     if (width <= 950) {
-//         if (width > height) {
-//             $(".cf_dashboard_main_wrapper").addClass("sidebar_closed_main");
-//             $(".cf_dashboard_header").addClass("sidebar_closed");
-//             $(".menu_toggle").on("click", function () {
-//                 $(".cf_dashboard_header_nav").toggleClass("active");
-//             });
-//         }
-//     }
-
-//     // var swiper = new Swiper(".cf_landing_banner_inner .mySwiper", {
-//     //     speed: 1000,
-//     //     loop: true,
-//     //     autoplay: {
-//     //         delay: 5000,
-//     //         disableOnInteraction: false,
-//     //     },
-//     //     pagination: {
-//     //         el: ".swiper-pagination",
-//     //         clickable: true,
-//     //     },
-//     // });
-
-//     // var swiper = new Swiper(".cf_testimonial_slider .mySwiper", {
-//     //     spaceBetween: 30,
-//     //     speed: 1000,
-//     //     loop: true,
-//     //     autoplay: {
-//     //         delay: 2500,
-//     //         disableOnInteraction: false,
-//     //     },
-//     //     pagination: {
-//     //         el: ".swiper-pagination",
-//     //         clickable: true,
-//     //     },
-//     // });
-
-//     $(".cf_overview_listWrapper ul li a").on("click", function () {
-//         $(".cf_overview_listWrapper ul li").removeClass("active");
-//         $(this).parents("li").addClass("active");
-//     });
-//     $(".cf_overview_listWrapper ul li a").click(function () {
-//         $("html, body").animate(
-//             {
-//                 scrollTop: $("#" + $(this).attr("data-jump") + "").offset().top - 150,
-//             },
-//             0
-//         );
-//     });
-// });
-
-// $(document).on("click", function () {
-//     $(".cf_dashboard_header_nav").removeClass("active");
-//     $(".cf_edit_profile_form_block").removeClass("field_active");
-//     $(".cf_landing_nav").removeClass("active");
-// });
-// $(window).resize(function () { });
-
-// /* R js */
-
-// function check(elem) {
-//     if (elem.value == "Other") {
-//         document.getElementById("your_role").style.display = "block";
-//     } else {
-//         document.getElementById("your_role").style.display = "none";
-//     }
-// }
-// function check1(elem) {
-//     if (elem.value == "Other") {
-//         document.getElementById("company_type").style.display = "block";
-//     } else {
-//         document.getElementById("company_type").style.display = "none";
-//     }
-// }
-// $(".menu_scrl").click(function () {
-//     var scrl = $(this);
-//     $(".cf_dashboard_sidebar_wrapper").animate(
-//         { scrollTop: $(scrl).offset().top },
-//         1500
-//     );
-// });
-
-// $(window).on("scroll", function () {
-//     var scroll = $(window).scrollTop();
-//     if (scroll >= 100) {
-//         $(".cf_landing_header_wrapper").addClass("active");
-//     } else {
-//         $(".cf_landing_header_wrapper").removeClass("active");
-//     }
-
-//     if ($(this).scrollTop() > 10) {
-//         $(".header_wrapper").addClass("sticky");
-//     } else {
-//         $(".header_wrapper").removeClass("sticky");
-//     }
-
-//     var topScrollMenu = $(window).scrollTop();
-//     if (topScrollMenu >= 100) {
-//         $(".cf_product_overview_mainWrapper > .cf_scroll_section").each(function (
-//             i
-//         ) {
-//             if ($(this).position().top <= topScrollMenu + 130) {
-//                 if ($(this).attr("data-scroll")) {
-//                     // $(".cf_overview_listWrapper ul li.active").removeClass("active");
-//                     // $('.cf_overview_listWrapper ul li a[data-jump="' + $(this).attr("data-scroll") + '"').addClass("active");
-//                     // $('.cf_overview_listWrapper ul li a[data-jump="' + $(this).attr("data-scroll") + '"').focus();
-//                 }
-//             }
-//         });
-//     } else {
-//         // $(".cf_overview_listWrapper ul li:first").addClass("active");
-//     }
-// });
+$(document).ready(function () {
+    $(".cf_submenu_block > a").on("click", function (e) {
+        e.stopPropagation();
+        if ($(this).siblings(".cf_sidebar_submenu").hasClass("active")) {
+            $(this).removeClass("active");
+            $(this).parents(".cf_submenu_block").removeClass("active");
+            $(this).siblings(".cf_sidebar_submenu").removeClass("active");
+            $(this).siblings(".cf_sidebar_submenu").slideUp(0);
+        } else {
+            $(".cf_submenu_block > a").removeClass("active");
+            $(".cf_submenu_block").removeClass("active");
+            $(this).addClass("active");
+            $(this).parents(".cf_submenu_block").addClass("active");
+            $(".cf_sidebar_submenu.active").removeClass("active");
+            $(".cf_sidebar_submenu").slideUp(0);
+            $(this).siblings(".cf_sidebar_submenu").addClass("active");
+            $(this).siblings(".cf_sidebar_submenu.active").slideDown(0);
+        }
+        // let j = e.target.innerText
+        // clickFunction(j.toLowerCase())
+        // console.log(j, "****");
+        // setName(j.toLowerCase())
+        // console.log($(this));
+    });
+});
 
 export default Home
