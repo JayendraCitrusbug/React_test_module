@@ -167,7 +167,7 @@ function Home() {
                                             <a ><span className="cf_icon cf_phone"></span>Contact Account Manager</a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="modal" data-bs-target="#cf_logout"><span
+                                            <a href='/' data-bs-toggle="modal" data-bs-target="#cf_logout"><span
                                                 className="cf_icon cf_logout"></span>
                                                 Logout</a>
                                         </li>

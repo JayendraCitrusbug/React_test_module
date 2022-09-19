@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import $ from 'jquery';
 
 function SubCategory(props) {
 
@@ -28,7 +27,7 @@ function SubCategory(props) {
             .catch((err) => {
                 console.log("err :", err);
             })
-    }, [])
+    })
 
     return (
         <>
